@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="inGame" class="playGame">
+        <div class="wrapper">
+          <div class="combatWrapper">
+            <div class="enemyWrapper">
+              <div class="statusBarWrapper">
+                <div class="info">
+                  <p>HAUNTER</p>
+                  <p>L.16</p>
+                </div>
+                <div class="statusBar">
+                  <div class="statusBarIndicator" :style="enemyBarStyles"></div>
+                </div>
+              </div>
+              <div class="enemyImage">
+                <img src="./haunter.gif" alt="" />
+              </div>
+            </div>
+
+            <div class="playerWrapper">
+              <div class="playerImage">
+                <img src="./charmander.gif" alt="" />
+              </div>
+              <div class="statusBarWrapper player">
+                <div class="info">
+                  <p>CHARMANDER</p>
+                  <p>L.12</p>
+                </div>
+                <div class="statusBar">
+                  <div
+                    class="statusBarIndicator player"
+                    :style="playerBarStyles"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="skillsWrapper">
+            <div class="internalSkillsWrapper">
+              <div class="choiceInfo"></div>
+              <div class="choice">
+                <button @click="attackEnemy()">SCRATCH</button>
+                <button
+                  @click="specialAttack()"
+                  :disabled="launchSpecialAttack"
+                >
+                  EMBER
+                </button>
+                <button @click="selfHealing()" :disabled="launchSpecialAttack">
+                  HEAL
+                </button>
+                <button disabled>RUN AWAY</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="!inGame">
+        <p><strong>{{ winnerIs }}</strong> wins</p>
+        <button @click="resetTheGame()">Again!</button>
+        <ul class="log-list">
+          <h3>Log</h3>
+          <li v-for="log in gameLog" :key=" log.id">
+            <p>Pg: {{ log.pg }} Move: {{ log.move }}Amount: {{ log.amount }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
